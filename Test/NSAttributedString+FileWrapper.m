@@ -40,7 +40,7 @@
 										error:(NSError **)error;
 {
     NSFileWrapper *wrapper = nil;
-    NSRange range = {0, self.length};
+    NSRange range = NSMakeRange(0, self.length);
     NSDictionary *attributesDict;
 	
 	if (attributes == nil) 
@@ -62,7 +62,10 @@
         NSData *data = [self dataFromRange:range documentAttributes:attributesDict error:error];
         if (data) {
             wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents:data] autorelease];
-            if (!wrapper && error) *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];
+            if (!wrapper && error) 
+			{
+				*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];
+			}
         }
     }
 	
