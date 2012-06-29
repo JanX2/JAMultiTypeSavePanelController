@@ -96,9 +96,12 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	_accessoryView = nil;
 	_formatPopUp = nil;
 	
-	self.selectedUTI = nil;
+	[_selectedUTI release];
+	_selectedUTI = nil;
+	[_autoSaveSelectedUTIKey release];
+	_autoSaveSelectedUTIKey = nil;
+	
 	self.enabledUTIs = nil;
-	self.autoSaveSelectedUTIKey = nil;
 	self.savePanel = nil;
 	
 	[super dealloc];
