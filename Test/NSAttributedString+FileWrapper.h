@@ -29,7 +29,17 @@
 
 @interface NSAttributedString (FileWrapper)
 
-- (NSFileWrapper *)fileWrapperForDocumentType:(NSString *)documentType 
++ (NSArray *)availableUTIsForSaving;
+
+- (NSFileWrapper *)fileWrapperForUTI:(NSString *)typeName
+							   error:(NSError **)error;
+
+- (NSFileWrapper *)fileWrapperForUTI:(NSString *)typeName
+						  attributes:(NSDictionary *)attributes
+							   error:(NSError **)error;
+
+
+- (NSFileWrapper *)fileWrapperForDocumentType:(NSString *)documentType
 										error:(NSError **)error;
 
 - (NSFileWrapper *)fileWrapperForDocumentType:(NSString *)documentType 

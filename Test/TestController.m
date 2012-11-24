@@ -6,32 +6,6 @@
 NSString * const	DefaultFileName								= @"untitled";
 
 
-NSString * const	Word97Type									= @"com.microsoft.word.doc";
-NSString * const	Word2003XMLType								= @"com.microsoft.word.wordml";
-NSString * const	Word2007Type								= @"org.openxmlformats.wordprocessingml.document";
-NSString * const	OpenDocumentTextType						= @"org.oasis-open.opendocument.text";
-
-
-static NSDictionary *sTypes = nil;
-
-static void PopulateSTypes(void) {
-	// Unfortunately, NSAttributedString will only give you types that are not UTIs and specify readable rather than writeable types, so we need to do this manually.
-	if (sTypes == nil)
-	{
-		sTypes = [[NSDictionary alloc] initWithObjectsAndKeys:
-				  NSPlainTextDocumentType, kUTTypePlainText,
-				  NSRTFTextDocumentType, (NSString *)kUTTypeRTF,
-				  NSRTFDTextDocumentType, (NSString *)kUTTypeRTFD,
-				  NSWebArchiveTextDocumentType, (NSString *)kUTTypeWebArchive,
-				  NSHTMLTextDocumentType, (NSString *)kUTTypeHTML,
-				  NSDocFormatTextDocumentType, Word97Type,
-				  NSWordMLTextDocumentType, Word2003XMLType,
-				  NSOfficeOpenXMLTextDocumentType, Word2007Type,
-				  NSOpenDocumentTextDocumentType, OpenDocumentTextType,
-				  nil];
-	}
-}
-
 @interface TestController ()
 - (void)savePanelDidEnd:(JAMultiTypeSavePanelController *)sheetController returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 @end
@@ -47,9 +21,7 @@ static void PopulateSTypes(void) {
 }
 
 - (void) prepareSaveController {
-	PopulateSTypes();
-	
-	if (saveController == nil)  saveController = [[JAMultiTypeSavePanelController alloc] initWithSupportedUTIs:[sTypes allKeys]];
+	if (saveController == nil)  saveController = [[JAMultiTypeSavePanelController alloc] initWithSupportedUTIs:[NSAttributedString availableUTIsForSaving]];
 	
 	saveController.autoSaveSelectedUTIKey = @"type";
 	
@@ -103,8 +75,8 @@ static void PopulateSTypes(void) {
 	{
 		NSError *error = nil;
 		
-		NSString *documentType = [sTypes objectForKey:sheetController.selectedUTI];
-		NSLog(@"Saving as %@/%@", sheetController.selectedUTI, documentType);
+		NSString *typeName = sheetController.selectedUTI;
+		NSLog(@"Saving as %@", typeName);
 		
 		NSTextStorage *textStorage = textView.textStorage;
 		
@@ -114,7 +86,7 @@ static void PopulateSTypes(void) {
 		NSString *path = sheetController.savePanel.filename;
 #endif
         
-		NSFileWrapper *wrapper = [textStorage fileWrapperForDocumentType:documentType error:&error];
+		NSFileWrapper *wrapper = [textStorage fileWrapperForUTI:typeName error:&error];
 		
 		BOOL OK = (wrapper != nil);
 		

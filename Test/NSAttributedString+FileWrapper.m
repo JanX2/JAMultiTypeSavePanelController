@@ -27,7 +27,56 @@
 
 #import "NSAttributedString+FileWrapper.h"
 
+NSString * const	Word97Type				= @"com.microsoft.word.doc";
+NSString * const	Word2003XMLType			= @"com.microsoft.word.wordml";
+NSString * const	Word2007Type			= @"org.openxmlformats.wordprocessingml.document";
+NSString * const	OpenDocumentTextType	= @"org.oasis-open.opendocument.text";
+
+static NSDictionary *documentTypesForSaving = nil; // Global cache for document types that are available for saving NSAttributedString objects to.
+
+__attribute__((constructor))
+static void initialize_navigationBarImages() {
+	// Unfortunately, NSAttributedString will only give you types that are not UTIs and specify readable rather than writeable types, so we need to do this manually.
+	if (documentTypesForSaving == nil)
+	{
+		documentTypesForSaving = [[NSDictionary alloc] initWithObjectsAndKeys:
+								  NSPlainTextDocumentType, kUTTypePlainText,
+								  NSRTFTextDocumentType, (NSString *)kUTTypeRTF,
+								  NSRTFDTextDocumentType, (NSString *)kUTTypeRTFD,
+								  NSWebArchiveTextDocumentType, (NSString *)kUTTypeWebArchive,
+								  NSHTMLTextDocumentType, (NSString *)kUTTypeHTML,
+								  NSDocFormatTextDocumentType, Word97Type,
+								  NSWordMLTextDocumentType, Word2003XMLType,
+								  NSOfficeOpenXMLTextDocumentType, Word2007Type,
+								  NSOpenDocumentTextDocumentType, OpenDocumentTextType,
+								  nil];
+	}
+}
+
+__attribute__((destructor))
+static void destroy_navigationBarImages() {
+	[documentTypesForSaving release];
+}
+
 @implementation NSAttributedString (FileWrapper)
+
++ (NSArray *)availableUTIsForSaving;
+{
+	return [documentTypesForSaving allKeys];
+}
+
+- (NSFileWrapper *)fileWrapperForUTI:(NSString *)typeName
+							   error:(NSError **)error;
+{
+	return [self fileWrapperForUTI:typeName attributes:nil error:error];
+}
+- (NSFileWrapper *)fileWrapperForUTI:(NSString *)typeName
+						  attributes:(NSDictionary *)attributes
+							   error:(NSError **)error;
+{
+	NSString *documentType = [documentTypesForSaving objectForKey:typeName];
+	return [self fileWrapperForDocumentType:documentType attributes:attributes error:error];
+}
 
 - (NSFileWrapper *)fileWrapperForDocumentType:(NSString *)documentType 
 										error:(NSError **)error;
