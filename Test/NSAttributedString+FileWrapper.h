@@ -4,7 +4,7 @@
 	Category on NSAttributedString for simplifying NSFileWrapper creation.
 	
 	
-	© 2012 Jan Weiß
+	© 2012-2013 Jan Weiß
 	
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the “Software”),
@@ -26,6 +26,12 @@
 */
 
 #import <Cocoa/Cocoa.h>
+
+extern NSString * const	SimpleTextType;
+extern NSString * const	Word97Type;
+extern NSString * const	Word2003XMLType;
+extern NSString * const	Word2007Type;
+extern NSString * const	OpenDocumentTextType;
 
 @interface NSAttributedString (FileWrapper)
 
