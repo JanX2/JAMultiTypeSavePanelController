@@ -310,6 +310,11 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 #endif
 
 
+- (NSString *)panelNibName
+{
+	return @"JAMultiTypeSavePanelController";
+}
+
 - (void) prepareToRun
 {
 	if (_savePanel == nil)
@@ -319,7 +324,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		_createdPanel = YES;
 	}
 	
-	[NSBundle loadNibNamed:@"JAMultiTypeSavePanelController" owner:self];
+	[NSBundle loadNibNamed:[self panelNibName] owner:self];
 	[self buildMenu];
 	
 	self.savePanel.accessoryView = self.accessoryView;
