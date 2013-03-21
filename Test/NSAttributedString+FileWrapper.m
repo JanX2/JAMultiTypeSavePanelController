@@ -89,7 +89,9 @@ static void destroy_navigationBarImages() {
 								   attributes:(NSDictionary *)attributes 
 										error:(NSError **)error;
 {
-    NSFileWrapper *wrapper = nil;
+    if (documentType == nil)  return nil;
+	
+	NSFileWrapper *wrapper = nil;
     NSRange range = NSMakeRange(0, self.length);
     NSDictionary *attributesDict;
 	
