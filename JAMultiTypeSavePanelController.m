@@ -512,23 +512,23 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti)
 	
 	while (queue.count != 0)
 	{
-		NSString *thisUTI = [queue objectAtIndex:0];
+		NSString *thisUTI = queue[0];
 		[queue removeObjectAtIndex:0];
 		if ([seenUTIs containsObject:thisUTI])  continue;
 		[seenUTIs addObject:thisUTI];
 		
 		// Add UTIs this UTI conforms to to the queue.
 		NSDictionary *thisUTIDecl = [NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)thisUTI)) autorelease];
-		id thisConformsTo = [thisUTIDecl objectForKey:(NSString *)kUTTypeConformsToKey];
+		id thisConformsTo = thisUTIDecl[(NSString *)kUTTypeConformsToKey];
 		// Conforms to may be an array or a single string.
 		if ([thisConformsTo isKindOfClass:[NSString class]])  [queue addObject:thisConformsTo];
 		else if ([thisConformsTo isKindOfClass:[NSArray class]])  [queue addObjectsFromArray:thisConformsTo];
 		
 		// Add extensions for this UTI to the result.
-		NSDictionary *thisTypeTagSpec = [thisUTIDecl objectForKey:(NSString *)kUTTypeTagSpecificationKey];
+		NSDictionary *thisTypeTagSpec = thisUTIDecl[(NSString *)kUTTypeTagSpecificationKey];
 		if ([thisTypeTagSpec isKindOfClass:[NSDictionary class]])
 		{
-			id thisExtensions = [thisTypeTagSpec objectForKey:(NSString *)kUTTagClassFilenameExtension];
+			id thisExtensions = thisTypeTagSpec[(NSString *)kUTTagClassFilenameExtension];
 			// Extensions may be an array or a single string.
 			if ([thisExtensions isKindOfClass:[NSString class]])  [result addObject:thisExtensions];
 			else if ([thisExtensions isKindOfClass:[NSArray class]])  [result addObjectsFromArray:thisExtensions];

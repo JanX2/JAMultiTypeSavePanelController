@@ -75,7 +75,7 @@ static void destroy_navigationBarImages() {
 						  attributes:(NSDictionary *)attributes
 							   error:(NSError **)error;
 {
-	NSString *documentType = [documentTypesForSaving objectForKey:typeName];
+	NSString *documentType = documentTypesForSaving[typeName];
 	return [self fileWrapperForDocumentType:documentType attributes:attributes error:error];
 }
 
@@ -97,11 +97,11 @@ static void destroy_navigationBarImages() {
 	
 	if (attributes == nil) 
 	{
-		attributesDict = [NSDictionary dictionaryWithObject:documentType forKey:NSDocumentTypeDocumentAttribute];
+		attributesDict = @{NSDocumentTypeDocumentAttribute: documentType};
 	} else 
 	{
 		NSMutableDictionary *mutableAttributesDict = [[attributes mutableCopy] autorelease];
-		[mutableAttributesDict setObject:documentType forKey:NSDocumentTypeDocumentAttribute];
+		mutableAttributesDict[NSDocumentTypeDocumentAttribute] = documentType;
 		attributesDict = mutableAttributesDict;
 	}
     
