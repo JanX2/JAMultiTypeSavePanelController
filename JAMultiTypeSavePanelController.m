@@ -60,6 +60,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 @synthesize supportedUTIs = _supportedUTIs;
 @synthesize enabledUTIs = _enabledUTIs;
 @synthesize sortTypesByName = _sortTypesByName;
+@synthesize lenientFileNameExtensions = _lenientFileNameExtensions;
 
 @synthesize accessoryView = _accessoryView;
 @synthesize formatPopUp = _formatPopUp;
@@ -84,6 +85,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		self.supportedUTIs = supportedUTIs;
 		self.enabledUTIs = nil;
 		self.sortTypesByName = YES;
+		self.lenientFileNameExtensions = YES;
 	}
 	
 	return self;
@@ -464,7 +466,13 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 {
 	if (self.savePanel != nil)
 	{
-		self.savePanel.allowedFileTypes = AllowedExtensionsForUTI(self.selectedUTI);
+		if (self.lenientFileNameExtensions)
+		{
+			self.savePanel.allowedFileTypes = AllowedExtensionsForUTI(self.selectedUTI);
+		}
+		else {
+			self.savePanel.allowedFileTypes = @[self.selectedUTI];
+		}
 	}
 }
 
