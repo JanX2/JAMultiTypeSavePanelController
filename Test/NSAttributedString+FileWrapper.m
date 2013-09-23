@@ -56,7 +56,7 @@ static void initialize_navigationBarImages() {
 
 __attribute__((destructor))
 static void destroy_navigationBarImages() {
-	[documentTypesForSaving release];
+	documentTypesForSaving = nil;
 }
 
 @implementation NSAttributedString (FileWrapper)
@@ -100,7 +100,7 @@ static void destroy_navigationBarImages() {
 		attributesDict = @{NSDocumentTypeDocumentAttribute: documentType};
 	} else 
 	{
-		NSMutableDictionary *mutableAttributesDict = [[attributes mutableCopy] autorelease];
+		NSMutableDictionary *mutableAttributesDict = [attributes mutableCopy];
 		mutableAttributesDict[NSDocumentTypeDocumentAttribute] = documentType;
 		attributesDict = mutableAttributesDict;
 	}
@@ -113,7 +113,7 @@ static void destroy_navigationBarImages() {
     {
         NSData *data = [self dataFromRange:range documentAttributes:attributesDict error:error];
         if (data) {
-            wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents:data] autorelease];
+            wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:data];
             if (!wrapper && error) 
 			{
 				*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:nil];

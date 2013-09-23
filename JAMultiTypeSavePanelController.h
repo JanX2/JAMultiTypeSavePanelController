@@ -32,8 +32,8 @@
 @interface JAMultiTypeSavePanelController: NSObject
 {
 @private
-	NSView						*_accessoryView;
-	NSPopUpButton				*_formatPopUp;
+	NSView						*__unsafe_unretained _accessoryView;
+	NSPopUpButton				*__unsafe_unretained _formatPopUp;
 	NSArray						*_supportedUTIs;
 	NSSet						*_enabledUTIs;
 	NSString					*_selectedUTI;
@@ -59,7 +59,7 @@
 @property BOOL sortTypesByName;	// Sort by name (default); if set to false, types are displayed in order of supportedUTIs array. Must be set before running panel.
 @property BOOL lenientFileNameExtensions;	// If set to YES, would allow an HTML file to be saved as “foo.txt”.
 
-@property (retain, nonatomic) NSSavePanel *savePanel;	// Optionally, specify a customized NSSavePanel (for example, if you want to set a prompt). Note that any accessory view will be replaced. If not set, savePanel will be valid in the modal delegate or after calling runModal[ForDirectory:].
+@property (strong, nonatomic) NSSavePanel *savePanel;	// Optionally, specify a customized NSSavePanel (for example, if you want to set a prompt). Note that any accessory view will be replaced. If not set, savePanel will be valid in the modal delegate or after calling runModal[ForDirectory:].
 
 
 /*	Exactly like the NSSavePanel equivalent, except that the didEndSelector's signature should match:
@@ -89,7 +89,7 @@
 - (NSInteger) runModalForDirectory:(NSString *)path file:(NSString *)fileName;
 - (NSInteger) runModal;
 
-@property (assign, nonatomic) IBOutlet NSView *accessoryView;
-@property (assign, nonatomic) IBOutlet NSPopUpButton *formatPopUp;
+@property (unsafe_unretained, nonatomic) IBOutlet NSView *accessoryView;
+@property (unsafe_unretained, nonatomic) IBOutlet NSPopUpButton *formatPopUp;
 
 @end

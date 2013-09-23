@@ -68,7 +68,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 
 + (id) controllerWithSupportedUTIs:(NSArray *)supportedUTIs
 {
-	return [[[self alloc] initWithSupportedUTIs:supportedUTIs] autorelease];
+	return [[self alloc] initWithSupportedUTIs:supportedUTIs];
 }
 
 
@@ -76,7 +76,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 {
 	if ([supportedUTIs count] == 0)
 	{
-		[self release];
 		return nil;
 	}
 	
@@ -92,27 +91,9 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 }
 
 
-- (void) dealloc
-{
-	[_accessoryView release];
-	_accessoryView = nil;
-	_formatPopUp = nil;
-	
-	[_selectedUTI release];
-	_selectedUTI = nil;
-	[_autoSaveSelectedUTIKey release];
-	_autoSaveSelectedUTIKey = nil;
-	
-	self.enabledUTIs = nil;
-	self.savePanel = nil;
-	
-	[super dealloc];
-}
-
-
 - (NSString *) selectedUTI
 {
-	return [[_selectedUTI retain] autorelease];
+	return _selectedUTI;
 }
 
 
@@ -120,7 +101,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 {
 	if (uti != nil && ![uti isEqualToString:_selectedUTI] && [self.supportedUTIs containsObject:uti])
 	{
-		[_selectedUTI autorelease];
 		_selectedUTI = [uti copy];
 		
 		[self selectUTI:uti];
@@ -131,7 +111,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 
 - (NSString *) autoSaveSelectedUTIKey
 {
-	return [[_autoSaveSelectedUTIKey retain] autorelease];
+	return _autoSaveSelectedUTIKey;
 }
 
 
@@ -139,7 +119,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 {
 	if (![key isEqualToString:_autoSaveSelectedUTIKey])
 	{
-		[_autoSaveSelectedUTIKey release];
 		_autoSaveSelectedUTIKey = [key copy];
 		
 		if (key != nil)
@@ -166,8 +145,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	
 	if (panel != _savePanel)
 	{
-		[_savePanel autorelease];
-		_savePanel = [panel retain];
+		_savePanel = panel;
 		_createdPanel = NO;
 	}
 }
@@ -180,9 +158,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 				 didEndSelector:(SEL)didEndSelector
 					contextInfo:(void *)contextInfo
 {
-	[self retain];		// Balanced in savePanelDidEnd:returnCode:contextInfo:
-
-	_modalDelegate = [delegate retain];
+	_modalDelegate = delegate;
 	_selector = didEndSelector;
 
 #if USE_BLOCKY_APIS
@@ -321,7 +297,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 {
 	if (_savePanel == nil)
 	{
-		_savePanel = [[NSSavePanel savePanel] retain];
+		_savePanel = [NSSavePanel savePanel];
 		_savePanel.canSelectHiddenExtension = YES;
 		_createdPanel = YES;
 	}
@@ -361,7 +337,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		item.representedObject = uti;
 		
 		[menuItems addObject:item];
-		[item release];
 	}
 	
 	// Sort if required.
@@ -413,7 +388,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		[self selectUTI:self.selectedUTI];
 	}
 	
-	[menu release];
 }
 
 
@@ -486,13 +460,10 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		send(_modalDelegate, _selector, self, returnCode, contextInfo);
 	}
 	
-	[_modalDelegate release];
 	_modalDelegate = nil;
 	_selector = NULL;
 	
 	[self cleanUp];
-	
-	[self release];		// Balanced in beginSheetForDirectory:file:modalForWindow:modalDelegate:didEndSelector:contextInfo:
 }
 
 @end
@@ -526,7 +497,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti)
 		[seenUTIs addObject:thisUTI];
 		
 		// Add UTIs this UTI conforms to to the queue.
-		NSDictionary *thisUTIDecl = [NSMakeCollectable(UTTypeCopyDeclaration((CFStringRef)thisUTI)) autorelease];
+		NSDictionary *thisUTIDecl = CFBridgingRelease(UTTypeCopyDeclaration((__bridge CFStringRef)thisUTI));
 		id thisConformsTo = thisUTIDecl[(NSString *)kUTTypeConformsToKey];
 		// Conforms to may be an array or a single string.
 		if ([thisConformsTo isKindOfClass:[NSString class]])  [queue addObject:thisConformsTo];
