@@ -62,9 +62,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 @synthesize sortTypesByName = _sortTypesByName;
 @synthesize lenientFileNameExtensions = _lenientFileNameExtensions;
 
-@synthesize accessoryView = _accessoryView;
-@synthesize formatPopUp = _formatPopUp;
-
 
 + (id) controllerWithSupportedUTIs:(NSArray *)supportedUTIs
 {
@@ -305,7 +302,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	[NSBundle loadNibNamed:[self panelNibName] owner:self];
 	[self buildMenu];
 	
-	self.savePanel.accessoryView = self.accessoryView;
+	_savePanel.accessoryView = _accessoryView;
 	[self updateSavePanelFileTypes];
 	
 	_prepared = YES;
@@ -380,7 +377,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		[menu setAutoenablesItems:YES];
 	}
 	
-	self.formatPopUp.menu = menu;
+	_formatPopUp.menu = menu;
 	
 	if ( !(self.selectedUTI != nil && [self selectUTI:self.selectedUTI]) )
 	{
@@ -408,14 +405,14 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 
 - (BOOL) selectUTI:(NSString *)uti
 {
-	if (self.formatPopUp != nil)
+	if (_formatPopUp != nil)
 	{
-		NSMenu *menu = self.formatPopUp.menu;
+		NSMenu *menu = _formatPopUp.menu;
 		NSInteger index = [menu indexOfItemWithRepresentedObject:uti];
 		NSMenuItem *item = [menu itemAtIndex:index];
 		if ((index != NSNotFound) && [item isEnabled])
 		{
-			[self.formatPopUp selectItemAtIndex:index];
+			[_formatPopUp selectItemAtIndex:index];
 			return YES;
 		}
 		else

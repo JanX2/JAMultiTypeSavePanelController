@@ -32,8 +32,8 @@
 @interface JAMultiTypeSavePanelController: NSObject
 {
 @private
-	NSView						*__unsafe_unretained _accessoryView;
-	NSPopUpButton				*__unsafe_unretained _formatPopUp;
+	IBOutlet NSView				*_accessoryView;
+	IBOutlet NSPopUpButton		*_formatPopUp;
 	NSArray						*_supportedUTIs;
 	NSSet						*_enabledUTIs;
 	NSString					*_selectedUTI;
@@ -88,8 +88,5 @@
 
 - (NSInteger) runModalForDirectory:(NSString *)path file:(NSString *)fileName;
 - (NSInteger) runModal;
-
-@property (unsafe_unretained, nonatomic) IBOutlet NSView *accessoryView;
-@property (unsafe_unretained, nonatomic) IBOutlet NSPopUpButton *formatPopUp;
 
 @end
