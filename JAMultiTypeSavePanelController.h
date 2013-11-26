@@ -89,4 +89,8 @@
 - (NSInteger) runModalForDirectory:(NSString *)path file:(NSString *)fileName;
 - (NSInteger) runModal;
 
+/*	For overriding in subclasses.
+*/
+- (void) additionalCleanUp;
+
 @end

@@ -398,8 +398,15 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	{
 		[[NSUserDefaults standardUserDefaults] setObject:self.selectedUTI forKey:self.autoSaveSelectedUTIKey];
 	}
+	
+	[self additionalCleanUp];
 
 	_prepared = NO;
+}
+
+- (void) additionalCleanUp
+{
+	return;
 }
 
 
