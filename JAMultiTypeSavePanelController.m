@@ -72,10 +72,10 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	
 	if ((self = [super init]))
 	{
-		self.supportedUTIs = supportedUTIs;
-		self.enabledUTIs = nil;
-		self.sortTypesByName = YES;
-		self.lenientFileNameExtensions = YES;
+		_supportedUTIs = supportedUTIs;
+		_enabledUTIs = nil;
+		_sortTypesByName = YES;
+		_lenientFileNameExtensions = YES;
 	}
 	
 	return self;
