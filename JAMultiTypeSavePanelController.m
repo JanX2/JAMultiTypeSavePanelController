@@ -76,6 +76,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		_enabledUTIs = nil;
 		_sortTypesByName = YES;
 		_lenientFileNameExtensions = YES;
+		_saveBatchFolder = NO;
 	}
 	
 	return self;
@@ -436,7 +437,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 
 - (void) updateSavePanelFileTypes
 {
-	if (self.savePanel != nil)
+	if (_saveBatchFolder == NO && _savePanel != nil)
 	{
 		if (self.lenientFileNameExtensions)
 		{
