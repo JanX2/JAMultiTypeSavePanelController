@@ -34,14 +34,11 @@
 @private
 	IBOutlet NSView				*_accessoryView;
 	IBOutlet NSPopUpButton		*_formatPopUp;
-	NSArray						*_supportedUTIs;
-	NSSet						*_enabledUTIs;
 	NSString					*_selectedUTI;
 	NSString					*_autoSaveSelectedUTIKey;
 	NSSavePanel					*_savePanel;
 	id							_modalDelegate;
 	SEL							_selector;
-	BOOL						_sortTypesByName;
 	BOOL						_running;
 	BOOL						_prepared;
 	BOOL						_createdPanel;

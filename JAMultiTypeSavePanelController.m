@@ -57,12 +57,6 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 
 @implementation JAMultiTypeSavePanelController
 
-@synthesize supportedUTIs = _supportedUTIs;
-@synthesize enabledUTIs = _enabledUTIs;
-@synthesize sortTypesByName = _sortTypesByName;
-@synthesize lenientFileNameExtensions = _lenientFileNameExtensions;
-
-
 + (id) controllerWithSupportedUTIs:(NSArray *)supportedUTIs
 {
 	return [[self alloc] initWithSupportedUTIs:supportedUTIs];
