@@ -269,13 +269,23 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	if (_prepared == NO) [self prepareToRun];
 
 	_running = YES;
-	[self.savePanel beginSheetModalForWindow:window
-						   completionHandler:^(NSInteger result)
+	
+	void(^completionBlock)(NSInteger result) = ^(NSInteger result)
 	{
 		handler(result);
 		
 		[self cleanUp];
-	}];
+	};
+	
+	if (window != nil)
+	{
+		[self.savePanel beginSheetModalForWindow:window
+							   completionHandler:completionBlock];
+	}
+	else
+	{
+		[self.savePanel beginWithCompletionHandler:completionBlock];
+	}
 }
 #endif
 
