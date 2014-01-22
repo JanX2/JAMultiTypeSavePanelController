@@ -57,7 +57,7 @@
 @property (copy, nonatomic) NSString *autoSaveSelectedUTIKey;
 
 @property BOOL sortTypesByName;	// Sort by name (default); if set to false, types are displayed in order of supportedUTIs array. Must be set before running panel.
-@property BOOL lenientFileNameExtensions;	// If set to YES, would allow an HTML file to be saved as “foo.txt”.
+@property BOOL lenientFileNameExtensions;	// If set to YES, would allow an HTML file to be saved as “foo.txt”, because plain text is a supertype of HTML in the UTI hierarchy.
 
 @property (strong, nonatomic) NSSavePanel *savePanel;	// Optionally, specify a customized NSSavePanel (for example, if you want to set a prompt). Note that any accessory view will be replaced. If not set, savePanel will be valid in the modal delegate or after calling runModal[ForDirectory:].
 
