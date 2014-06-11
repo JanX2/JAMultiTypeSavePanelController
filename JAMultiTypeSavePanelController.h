@@ -91,4 +91,11 @@
 */
 - (void) additionalCleanUp;
 
+/*	For custom execution. 
+	Be careful!
+*/
+- (void) prepareToRun;
+- (void) buildMenu;
+- (void) cleanUp;
+
 @end
