@@ -454,7 +454,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 			self.savePanel.allowedFileTypes = AllowedExtensionsForUTI(self.selectedUTI);
 		}
 		else {
-			self.savePanel.allowedFileTypes = @[self.selectedUTI];
+			self.savePanel.allowedFileTypes = self.selectedUTI ? @[self.selectedUTI] : @[];
 		}
 	}
 }
