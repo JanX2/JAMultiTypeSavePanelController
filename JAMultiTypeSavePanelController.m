@@ -364,7 +364,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		NSInteger count = [menu numberOfItems];
 		NSMenuItem *item;
 		
-		for (int i = 0; i < count; i++) {
+		for (NSInteger i = 0; i < count; i++) {
 			item = [menu itemAtIndex:i];
 			
 			if (![_enabledUTIs member:item.representedObject])
