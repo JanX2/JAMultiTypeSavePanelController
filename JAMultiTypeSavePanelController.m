@@ -367,7 +367,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		for (NSInteger i = 0; i < count; i++) {
 			item = [menu itemAtIndex:i];
 			
-			if (![_enabledUTIs member:item.representedObject])
+			if (![_enabledUTIs containsObject:item.representedObject])
 			{
 				[item setEnabled:NO];
 			}
