@@ -295,6 +295,11 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	return @"JAMultiTypeSavePanelController";
 }
 
+- (BOOL)panelNibUsesAutolayout
+{
+	return NO;
+}
+
 - (void) prepareToRun
 {
 	if (_savePanel == nil)
@@ -307,6 +312,7 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 	[NSBundle loadNibNamed:[self panelNibName] owner:self];
 	[self buildMenu];
 	
+	_accessoryView.translatesAutoresizingMaskIntoConstraints = self.panelNibUsesAutolayout;
 	_savePanel.accessoryView = _accessoryView;
 	[self updateSavePanelFileTypes];
 	
