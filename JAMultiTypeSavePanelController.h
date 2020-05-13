@@ -37,6 +37,7 @@
 	NSString					*_selectedUTI;
 	NSString					*_autoSaveSelectedUTIKey;
 	NSSavePanel					*_savePanel;
+	NSArray						*_panelNibRoot;
 	id							_modalDelegate;
 	SEL							_selector;
 	BOOL						_running;

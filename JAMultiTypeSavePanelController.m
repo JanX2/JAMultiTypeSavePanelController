@@ -309,7 +309,15 @@ static NSArray *AllowedExtensionsForUTI(NSString *uti);
 		_createdPanel = YES;
 	}
 	
-	[NSBundle loadNibNamed:[self panelNibName] owner:self];
+	NSArray *objectsRoot;
+	NSString *panelNibName = [self panelNibName];
+	if (![[NSBundle mainBundle] loadNibNamed:panelNibName
+									   owner:self
+							 topLevelObjects:&objectsRoot]) {
+		NSLog(@"Failed to load %@.xib", panelNibName);
+		return;
+	}
+	_panelNibRoot = objectsRoot;
 	[self buildMenu];
 	
 	_accessoryView.translatesAutoresizingMaskIntoConstraints = self.panelNibUsesAutolayout;
