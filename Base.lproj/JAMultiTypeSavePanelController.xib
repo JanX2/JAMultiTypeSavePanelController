@@ -18,18 +18,19 @@
             <rect key="frame" x="0.0" y="0.0" width="351" height="32"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                     <rect key="frame" x="72" y="2" width="262" height="26"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="257" id="37L-Hm-OGK"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="6">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" id="7"/>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                    <rect key="frame" x="5" y="8" width="65" height="17"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="19" y="7" width="51" height="18"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Format:" id="5">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -37,6 +38,19 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="top" constant="7" id="8AW-jI-XmZ"/>
+                <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="7" id="AlP-PY-lSA"/>
+                <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="20" symbolic="YES" id="BPQ-xY-2tW"/>
+                <constraint firstItem="3" firstAttribute="baseline" secondItem="4" secondAttribute="firstBaseline" id="DN2-UT-KPF"/>
+                <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5" id="JKd-4a-w6B"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="6" id="Kaw-m3-1Qa"/>
+                <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="20" symbolic="YES" id="Mnr-K0-OKa"/>
+                <constraint firstItem="3" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="gvs-NE-cpe"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="6" id="hJf-3f-SXv"/>
+                <constraint firstItem="3" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="lKc-SV-sJ8"/>
+                <constraint firstItem="4" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="21" id="pr3-Dq-ifo"/>
+            </constraints>
             <connections>
                 <outlet property="nextKeyView" destination="3" id="11"/>
             </connections>
